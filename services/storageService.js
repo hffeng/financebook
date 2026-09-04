@@ -54,11 +54,37 @@ function pullFromCloud(key) {
     });
 }
 
+// 判断数据是否为空（空数组 / 空对象 / null / undefined / 空串）
+function isEmptyData(value) {
+  if (value === null || value === undefined || value === '') return true;
+  if (Array.isArray(value)) return value.length === 0;
+  if (typeof value === 'object') return Object.keys(value).length === 0;
+  return false;
+}
+
 // 将本地缓存推送到云数据库（后写覆盖）
+// 保护：若本地数据为空而云端已有数据，则跳过推送，避免空数据覆盖云端导致数据丢失
 function pushToCloud(key) {
   const docId = CLOUD_DOC_MAP[key];
   if (!docId) return Promise.resolve();
-  const value = readLocal(key);
+  const value = read(key, null);
+  // 本地为空时，先检查云端是否已有数据，避免空数据覆盖云端
+  if (isEmptyData(value)) {
+    return getDb().collection(CLOUD_COLLECTION).doc(docId).get()
+      .then(res => {
+        // 云端已有数据则跳过推送，保留云端数据
+        if (res.data && res.data.data !== undefined && !isEmptyData(res.data.data)) {
+          return;
+        }
+        // 云端也为空，正常推送
+        return getDb().collection(CLOUD_COLLECTION).doc(docId).set({
+          data: { data: value }
+        });
+      })
+      .catch(() => {
+        // 读取云端失败，保守跳过推送，避免覆盖
+      });
+  }
   return getDb().collection(CLOUD_COLLECTION).doc(docId).set({
     data: { data: value }
   }).catch(err => {
