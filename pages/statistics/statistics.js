@@ -85,8 +85,9 @@ Page({
     const type = this.data.pieType;
     const hide = this.data.hideAmount;
     const money = (v) => hide ? '****' : formatAmount(v);
-    // 分类统计统计所有记录（不限定日期范围）
-    const stats = storage.categoryStats(type, '', '', '');
+    // 分类统计与当前时间范围（本月/上月/全部）联动
+    const { start, end } = this.getRange();
+    const stats = storage.categoryStats(type, '', start, end);
     const total = stats.reduce((s, d) => s + d.amount, 0);
     const pieData = stats.map(d => {
       return Object.assign({}, d, {
