@@ -1,0 +1,27 @@
+<view class="tab-bar">
+  <view class="tab-bar-inner">
+    <view
+      class="tab-item {{selected === index ? 'active' : ''}} {{item.isCenter ? 'center-item' : ''}}"
+      wx:for="{{list}}"
+      wx:key="pagePath"
+      data-path="{{item.pagePath}}"
+      data-index="{{index}}"
+      bindtap="switchTab"
+    >
+      <view class="tab-icon-wrap {{item.isCenter ? 'center-icon-wrap' : ''}}">
+        <view class="tab-icon {{item.isCenter ? 'center-icon' : ''}}">
+          <block wx:if="{{item.isCenter}}">
+            <view class="center-plus">
+              <view class="plus-h"></view>
+              <view class="plus-v"></view>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="svg-icon {{selected === index ? item.iconActive : item.icon}}"></view>
+          </block>
+        </view>
+      </view>
+      <view class="tab-text" wx:if="{{!item.isCenter}}">{{item.text}}</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,125 @@
+/* 全局样式 - 微信「记账本」风格：简洁白底 + 柔和绿色 */
+page {
+  --primary: #07C160;
+  --primary-dark: #06AD56;
+  --primary-light: #10D96F;
+  --primary-lighter: #A8F0C8;
+  --primary-bg: #E8F8EF;
+  --bg: #F7F8FA;
+  --card: #FFFFFF;
+  --text-main: #1A1A1A;
+  --text-sub: #666666;
+  --text-hint: #999999;
+  --danger: #FF4D4F;
+  --warning: #FF9500;
+  --info: #1677FF;
+  --radius: 24rpx;
+  --radius-sm: 16rpx;
+  --shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 8rpx 32rpx rgba(7, 193, 96, 0.18);
+
+  background-color: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+  color: var(--text-main);
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+/* 通用卡片 */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 32rpx;
+  margin: 24rpx;
+}
+
+/* 页面容器 */
+.page {
+  padding-bottom: 200rpx;
+}
+
+/* 标题 */
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text-main);
+  padding: 32rpx 32rpx 16rpx;
+}
+
+.section-sub {
+  font-size: 26rpx;
+  color: var(--text-hint);
+  padding: 0 32rpx;
+}
+
+/* 主按钮 */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: #fff;
+  border-radius: 48rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  padding: 24rpx 0;
+  text-align: center;
+  border: none;
+  line-height: 1.4;
+  box-shadow: 0 8rpx 24rpx rgba(7, 193, 96, 0.3);
+}
+
+.btn-primary::after {
+  border: none;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+/* 金额 */
+.amount-income {
+  color: var(--primary);
+}
+
+.amount-expense {
+  color: var(--danger);
+}
+
+/* 空状态 */
+.empty {
+  text-align: center;
+  color: var(--text-hint);
+  padding: 80rpx 0;
+  font-size: 26rpx;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+/* 通用输入框 */
+.input-field {
+  background: var(--bg);
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+  width: 100%;
+  box-sizing: border-box;
+  height: 88rpx;
+  line-height: 48rpx;
+}
+
+/* 通用列表项 */
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 32rpx;
+  background: var(--card);
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}

@@ -1,0 +1,153 @@
+.tab-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  background: transparent;
+}
+
+.tab-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 110rpx;
+  background: #FFFFFF;
+  border-radius: 32rpx 32rpx 0 0;
+  box-shadow: 0 -6rpx 24rpx rgba(0, 0, 0, 0.06);
+  position: relative;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: content-box;
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+
+.tab-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-icon {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 图标（SVG data URI） */
+.svg-icon {
+  width: 48rpx;
+  height: 48rpx;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.svg-icon.home {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23999999'%3E%3Cpath d='M12 3l9 8h-3v9h-5v-6h-2v6H6v-9H3l9-8z'/%3E%3C/svg%3E");
+}
+.svg-icon.home-active {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2307C160'%3E%3Cpath d='M12 3l9 8h-3v9h-5v-6h-2v6H6v-9H3l9-8z'/%3E%3C/svg%3E");
+}
+
+.svg-icon.chart {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23999999'%3E%3Cpath d='M5 9h3v10H5V9zm5-6h3v16h-3V3zm5 9h3v7h-3v-7z'/%3E%3C/svg%3E");
+}
+.svg-icon.chart-active {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2307C160'%3E%3Cpath d='M5 9h3v10H5V9zm5-6h3v16h-3V3zm5 9h3v7h-3v-7z'/%3E%3C/svg%3E");
+}
+
+.svg-icon.member {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23999999'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+}
+.svg-icon.member-active {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2307C160'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+}
+
+.svg-icon.category {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23999999'%3E%3Cpath d='M3 5h8v8H3V5zm10 0h8v5h-8V5zM3 15h8v4H3v-4zm10 0h8v4h-8v-4z'/%3E%3C/svg%3E");
+}
+.svg-icon.category-active {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2307C160'%3E%3Cpath d='M3 5h8v8H3V5zm10 0h8v5h-8V5zM3 15h8v4H3v-4zm10 0h8v4h-8v-4z'/%3E%3C/svg%3E");
+}
+
+/* 中间凸起记账按钮 */
+.center-item {
+  flex: 0 0 140rpx;
+}
+
+.center-icon-wrap {
+  position: absolute;
+  top: 0;
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #07C160 0%, #10D96F 100%);
+  box-shadow: 0 10rpx 24rpx rgba(7, 193, 96, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.center-item:active .center-icon-wrap {
+  transform: scale(0.92);
+}
+
+.center-icon {
+  width: 112rpx;
+  height: 112rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-plus {
+  position: relative;
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.plus-h,
+.plus-v {
+  position: absolute;
+  background: #FFFFFF;
+  border-radius: 6rpx;
+}
+
+.plus-h {
+  left: 0;
+  top: 50%;
+  width: 48rpx;
+  height: 6rpx;
+  transform: translateY(-50%);
+}
+
+.plus-v {
+  top: 0;
+  left: 50%;
+  width: 6rpx;
+  height: 48rpx;
+  transform: translateX(-50%);
+}
+
+.tab-text {
+  font-size: 22rpx;
+  color: #999999;
+  margin-top: 4rpx;
+}
+
+.tab-item.active .tab-text {
+  color: #07C160;
+  font-weight: 600;
+}

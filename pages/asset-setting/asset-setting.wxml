@@ -1,0 +1,83 @@
+<view class="page">
+  <!-- 成员选择 -->
+  <view class="section-title">选择成员</view>
+  <scroll-view scroll-x class="member-scroll" show-scrollbar="{{false}}">
+    <view class="member-list">
+      <view class="member-item {{selectedMemberId === item.id ? 'selected' : ''}}"
+        wx:for="{{members}}" wx:key="id" bindtap="onMemberSelect" data-id="{{item.id}}">
+        <view class="member-avatar" style="background:{{item.avatar}};">
+          <image wx:if="{{item.avatarImage}}" class="member-avatar-img" src="{{item.avatarImage}}" mode="aspectFill"></image>
+          <text wx:elif="{{item.avatarIconEmoji}}">{{item.avatarIconEmoji}}</text>
+          <text wx:else>{{item.name[0]}}</text>
+        </view>
+        <view class="member-name">{{item.name}}</view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <block wx:if="{{selectedMember}}">
+    <!-- 期初资产 -->
+    <view class="section-title">期初资产</view>
+    <view class="card">
+      <view class="initial-tip">期初资产作为该成员资产的起点，之后收入/支出在此基础上增减。</view>
+      <view class="row-field">
+        <view class="field-label">期初日期</view>
+        <picker mode="date" value="{{initialDate}}" bindchange="onInitialDateChange">
+          <view class="picker-value">{{initialDate}}</view>
+        </picker>
+      </view>
+      <view class="row-field">
+        <view class="field-label">期初金额</view>
+        <input class="amount-input" type="digit" placeholder="0.00" value="{{initialAmount}}" bindinput="onInitialAmountInput" />
+      </view>
+      <button class="btn-primary save-btn" bindtap="onSaveInitial">保存期初资产</button>
+    </view>
+
+    <!-- 快照列表 -->
+    <view class="section-title">资产快照</view>
+    <view class="card snapshot-list" wx:if="{{snapshots.length > 0}}">
+      <view class="snapshot-item" wx:for="{{snapshots}}" wx:key="id">
+        <view class="snapshot-dot"></view>
+        <view class="snapshot-info">
+          <view class="snapshot-date">{{item.date}}</view>
+          <view class="snapshot-note" wx:if="{{item.note}}">{{item.note}}</view>
+        </view>
+        <view class="snapshot-amount">¥{{item.amountText}}</view>
+        <view class="snapshot-del" bindtap="onDeleteSnapshot" data-id="{{item.id}}">✕</view>
+      </view>
+    </view>
+    <view class="empty" wx:else>
+      <text class="empty-icon">📌</text>
+      <view>暂无资产快照</view>
+    </view>
+
+    <view class="add-wrap">
+      <button class="btn-primary" bindtap="onAddSnapshot">新增快照</button>
+    </view>
+  </block>
+
+  <!-- 新增快照弹层 -->
+  <view class="mask" wx:if="{{showSnapshotEditor}}" bindtap="onSnapshotEditorClose">
+    <view class="editor" catchtap="noop">
+      <view class="editor-title">新增资产快照</view>
+      <view class="editor-field">
+        <view class="editor-label">快照日期</view>
+        <picker mode="date" value="{{snapshotDate}}" bindchange="onSnapshotDateChange">
+          <view class="picker-value">{{snapshotDate}}</view>
+        </picker>
+      </view>
+      <view class="editor-field">
+        <view class="editor-label">资产金额</view>
+        <input class="input-field" type="digit" placeholder="请输入该时刻资产总额" value="{{snapshotAmount}}" bindinput="onSnapshotAmountInput" />
+      </view>
+      <view class="editor-field">
+        <view class="editor-label">备注（可选）</view>
+        <input class="input-field" placeholder="如：季度盘点" value="{{snapshotNote}}" bindinput="onSnapshotNoteInput" />
+      </view>
+      <view class="editor-actions">
+        <button class="editor-btn cancel" bindtap="onSnapshotEditorClose">取消</button>
+        <button class="editor-btn save" bindtap="onSnapshotSave">保存</button>
+      </view>
+    </view>
+  </view>
+</view>

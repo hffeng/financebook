@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "资产构成",
+  "usingComponents": {
+    "asset-chart": "/components/asset-chart/asset-chart"
+  }
+}

@@ -1,0 +1,40 @@
+<view class="page" wx:if="{{member}}">
+  <!-- 姓名 -->
+  <view class="card form-card top-card">
+    <view class="field-label">姓名</view>
+    <input class="form-input" placeholder="请输入成员姓名" value="{{name}}" bindinput="onNameInput" maxlength="20" />
+  </view>
+
+  <!-- 公积金缴纳基数 -->
+  <view class="card form-card">
+    <view class="field-label">公积金每月缴纳额（元/月），每月15日自动入账非流动资产</view>
+    <input class="form-input" type="digit" placeholder="0 表示没有" value="{{housingFundInput}}" bindinput="onHousingFundInput" />
+  </view>
+
+  <!-- 财产收入 / 支出 -->
+  <view class="card form-card">
+    <view class="field-label">财产收入（元/月），每月15日自动入账</view>
+    <input class="form-input" type="digit" placeholder="输入收入金额，如 3000" value="{{propertyIncomeInput}}" bindinput="onPropertyIncomeInput" />
+    <view class="field-label sub-label">财产支出（元/月），每月15日自动扣款</view>
+    <input class="form-input" type="digit" placeholder="输入支出金额，如 3000" value="{{propertyExpenseInput}}" bindinput="onPropertyExpenseInput" />
+  </view>
+
+  <!-- 头像选择 -->
+  <view class="section-title">选择头像</view>
+  <view class="card avatar-card">
+    <view class="avatar-grid">
+      <view class="avatar-option {{selectedAvatarKey === item.key ? 'selected' : ''}}"
+        wx:for="{{presetAvatars}}" wx:key="key" bindtap="onAvatarSelect" data-key="{{item.key}}">
+        <view class="avatar-option-icon" style="background:{{item.color}};">
+          <image wx:if="{{item.image}}" class="avatar-option-img" src="{{item.image}}" mode="aspectFill"></image>
+          <text wx:else>{{item.icon}}</text>
+        </view>
+        <view class="avatar-option-name">{{item.name}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="add-wrap">
+    <button class="btn-primary" bindtap="onSave">保存</button>
+  </view>
+</view>

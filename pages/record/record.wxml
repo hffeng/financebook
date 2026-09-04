@@ -1,0 +1,92 @@
+<view class="page record-page">
+  <!-- 类型切换 -->
+  <view class="type-switch">
+    <view class="type-btn {{type === 'expense' ? 'active expense' : ''}}" bindtap="onTypeChange" data-type="expense">支出</view>
+    <view class="type-btn {{type === 'income' ? 'active income' : ''}}" bindtap="onTypeChange" data-type="income">收入</view>
+    <view class="type-btn {{type === 'asset' ? 'active asset' : ''}}" bindtap="onTypeChange" data-type="asset">资产</view>
+    <view class="type-btn {{type === 'liability' ? 'active liability' : ''}}" bindtap="onTypeChange" data-type="liability">负债</view>
+  </view>
+
+  <!-- 金额输入 -->
+  <view class="amount-input">
+    <text class="amount-symbol">¥</text>
+    <input class="amount-field" type="digit" placeholder="0.00" placeholder-class="amount-placeholder"
+      value="{{amount}}" bindinput="onAmountInput" cursor-spacing="30" adjust-position="{{false}}" />
+  </view>
+
+  <!-- 分类选择 -->
+  <view class="card" wx:if="{{type !== 'asset'}}">
+    <view class="field-label">分类</view>
+    <scroll-view scroll-x class="cat-scroll" show-scrollbar="{{false}}">
+      <view class="cat-list">
+        <view class="cat-item {{selectedCategoryId === item.id ? 'selected' : ''}}"
+          wx:for="{{categories}}" wx:key="id" bindtap="onCategorySelect" data-id="{{item.id}}">
+          <view class="cat-icon" style="background:{{item.color}}1A; border-color:{{selectedCategoryId === item.id ? item.color : 'transparent'}};">
+            <text>{{item.icon}}</text>
+          </view>
+          <view class="cat-name">{{item.name}}</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 资产大类选择 -->
+  <view class="card" wx:if="{{type === 'asset'}}">
+    <view class="field-label">资产大类</view>
+    <view class="goal-type-row">
+      <view class="goal-type-option {{assetScope === 'personal' ? 'selected' : ''}}" bindtap="onAssetScopeChange" data-scope="personal">流动资产</view>
+      <view class="goal-type-option {{assetScope === 'family' ? 'selected' : ''}}" bindtap="onAssetScopeChange" data-scope="family">非流动资产</view>
+    </view>
+  </view>
+
+  <!-- 资产小类选择 -->
+  <view class="card" wx:if="{{type === 'asset'}}">
+    <view class="field-label">资产小类</view>
+    <scroll-view scroll-x class="cat-scroll" show-scrollbar="{{false}}">
+      <view class="cat-list">
+        <view class="cat-item {{selectedAssetCategory === item.key ? 'selected' : ''}}"
+          wx:for="{{assetCategories}}" wx:key="key" bindtap="onAssetCategorySelect" data-key="{{item.key}}">
+          <view class="cat-icon" style="background:#07C1601A; border-color:{{selectedAssetCategory === item.key ? '#07C160' : 'transparent'}};">
+            <text>{{item.icon}}</text>
+          </view>
+          <view class="cat-name">{{item.name}}</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 成员选择（与收入页面一致，资产类型下也显示，含非流动资产） -->
+  <view class="card" wx:if="{{type !== 'asset' || assetScope === 'personal' || assetScope === 'family'}}">
+    <view class="field-label">记账成员</view>
+    <scroll-view scroll-x class="cat-scroll" show-scrollbar="{{false}}">
+      <view class="cat-list">
+        <view class="cat-item {{selectedMemberId === item.id ? 'selected' : ''}}"
+          wx:for="{{members}}" wx:key="id" bindtap="onMemberSelect" data-id="{{item.id}}">
+          <view class="member-avatar" style="background:{{item.avatar}};">
+            <image wx:if="{{item.avatarImage}}" class="member-avatar-img" src="{{item.avatarImage}}" mode="aspectFill"></image>
+            <text wx:elif="{{item.avatarIconEmoji}}">{{item.avatarIconEmoji}}</text>
+            <text wx:else>{{item.name[0]}}</text>
+          </view>
+          <view class="cat-name">{{item.name}}</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 日期 -->
+  <view class="card row-field">
+    <view class="field-label">日期</view>
+    <picker mode="date" value="{{date}}" bindchange="onDateChange">
+      <view class="picker-value">{{date}}</view>
+    </picker>
+  </view>
+
+  <!-- 备注 -->
+  <input class="remark-input" placeholder="{{remarkFocus ? '' : '添加备注（可选）'}}" value="{{remark}}"
+    bindinput="onRemarkInput" bindfocus="onRemarkFocus" bindblur="onRemarkBlur" />
+
+  <!-- 提交 -->
+  <view class="submit-wrap">
+    <button class="btn-primary" bindtap="onSubmit">保存</button>
+  </view>
+</view>

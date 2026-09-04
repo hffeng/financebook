@@ -1,0 +1,230 @@
+.page {
+  padding-bottom: 240rpx;
+}
+
+/* 表单 */
+.form-item {
+  margin-bottom: 28rpx;
+}
+
+.form-label {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+}
+
+.form-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.form-label-row .form-label {
+  margin-bottom: 0;
+}
+
+.manual-toggle {
+  font-size: 24rpx;
+  color: #07C160;
+  padding: 4rpx 8rpx;
+}
+
+.form-input {
+  background: #F5F7FA;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+  height: 88rpx;
+  line-height: 48rpx;
+}
+
+.form-placeholder {
+  color: #bbb;
+}
+
+.picker-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #1A1A1A;
+}
+
+.picker-arrow {
+  color: #999;
+  font-size: 24rpx;
+}
+
+.rate-tip {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 10rpx;
+}
+
+/* 类型切换 */
+.type-row {
+  display: flex;
+  gap: 16rpx;
+}
+
+.type-option {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  border-radius: 16rpx;
+  background: #F5F7FA;
+  font-size: 28rpx;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.type-option.selected {
+  background: #E8F8EF;
+  color: #07C160;
+  font-weight: 600;
+  box-shadow: 0 0 0 2rpx #07C160;
+}
+
+/* 年限选择 */
+.year-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.year-option {
+  width: calc(25% - 12rpx);
+  text-align: center;
+  padding: 18rpx 0;
+  border-radius: 16rpx;
+  background: #F5F7FA;
+  font-size: 26rpx;
+  color: #666;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.year-option.selected {
+  background: #E8F8EF;
+  color: #07C160;
+  font-weight: 600;
+  box-shadow: 0 0 0 2rpx #07C160;
+}
+
+.calc-btn {
+  margin-top: 12rpx;
+}
+
+/* 计算结果 */
+.result-card {
+  margin-top: 8rpx;
+  overflow: hidden;
+}
+
+.result-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8rpx;
+}
+
+.result-title {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.result-badge {
+  font-size: 22rpx;
+  color: #07C160;
+  background: #E8F8EF;
+  padding: 6rpx 20rpx;
+  border-radius: 24rpx;
+}
+
+.result-main {
+  text-align: center;
+  padding: 24rpx 0 32rpx;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.result-label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.result-value {
+  font-size: 64rpx;
+  font-weight: 700;
+  color: #07C160;
+  margin-top: 8rpx;
+  letter-spacing: 1rpx;
+}
+
+.result-sub {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+.result-actual {
+  margin-top: 24rpx;
+  background: linear-gradient(135deg, #FFF3EC 0%, #FFE8DC 100%);
+  border-radius: 20rpx;
+  padding: 24rpx 28rpx;
+}
+
+.actual-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.actual-info {
+  flex: 1;
+  margin-right: 20rpx;
+}
+
+.actual-value {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #FF8A65;
+  letter-spacing: 1rpx;
+}
+
+.result-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 24rpx;
+  background: #F7F8FA;
+  border-radius: 20rpx;
+  padding: 8rpx 0;
+}
+
+.result-cell {
+  width: 50%;
+  box-sizing: border-box;
+  padding: 20rpx 8rpx;
+  text-align: center;
+}
+
+.cell-label {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.cell-value {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-top: 8rpx;
+}
+
+.disclaimer {
+  text-align: center;
+  font-size: 22rpx;
+  color: #bbb;
+  padding: 24rpx 32rpx;
+}

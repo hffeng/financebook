@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "总览",
+  "usingComponents": {
+    "asset-chart": "/components/asset-chart/asset-chart"
+  }
+}

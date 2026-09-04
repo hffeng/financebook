@@ -1,0 +1,1 @@
+<canvas type="2d" id="chartCanvas" class="chart-canvas" bindtap="onCanvasTap" bindtouchmove="onCanvasTouchMove" bindtouchend="onCanvasTouchEnd"></canvas>

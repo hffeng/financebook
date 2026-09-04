@@ -1,0 +1,410 @@
+.page {
+  padding-bottom: 60rpx;
+}
+
+/* 资产总额 */
+.total-card {
+  background: linear-gradient(135deg, #07C160 0%, #10D96F 55%, #4BE39A 100%);
+  margin: 24rpx;
+  border-radius: 32rpx;
+  padding: 48rpx 40rpx;
+  color: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(7, 193, 96, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.total-card::before {
+  content: '';
+  position: absolute;
+  top: -80rpx;
+  right: -60rpx;
+  width: 260rpx;
+  height: 260rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.total-label {
+  font-size: 26rpx;
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
+}
+
+.total-amount {
+  font-size: 72rpx;
+  font-weight: 700;
+  margin-top: 16rpx;
+  letter-spacing: 1rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-sub {
+  display: flex;
+  align-items: center;
+  margin-top: 28rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-sub-item {
+  flex: 1;
+}
+
+.sub-label {
+  font-size: 24rpx;
+  opacity: 0.85;
+}
+
+.sub-value {
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-top: 6rpx;
+}
+
+.hero-sub-divider {
+  width: 1rpx;
+  height: 56rpx;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 0 24rpx;
+}
+
+/* 构成明细（折叠分组，样式同分类管理页） */
+.asset-group {
+  background: #fff;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.05);
+  margin: 0 24rpx 24rpx;
+  overflow: hidden;
+}
+
+.group-head {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 32rpx;
+}
+
+.group-head:active {
+  background: #F7F8FA;
+}
+
+.group-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  margin-right: 20rpx;
+}
+
+.group-icon.asset {
+  background: #E8F4FD;
+}
+
+.group-name {
+  flex: 1;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #1A1A1A;
+}
+
+.group-count {
+  font-size: 26rpx;
+  color: #999;
+  margin-right: 12rpx;
+}
+
+.group-arrow {
+  font-size: 36rpx;
+  color: #CCCCCC;
+  transition: transform 0.2s ease;
+}
+
+.group-arrow.open {
+  transform: rotate(90deg);
+}
+
+.group-body {
+  border-top: 1rpx solid #F5F5F5;
+  padding: 8rpx 24rpx;
+}
+
+.item-list {
+  padding: 8rpx 24rpx;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 8rpx;
+  border-bottom: 1rpx solid #F5F5F5;
+}
+
+.item-row:last-child {
+  border-bottom: none;
+}
+
+.item-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 20rpx;
+  background: #E8F8EF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  margin-right: 20rpx;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-name {
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.item-tip {
+  font-size: 22rpx;
+  color: #bbb;
+  margin-top: 4rpx;
+}
+
+.item-amount {
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-right: 16rpx;
+}
+
+.amount-income {
+  color: #FF4D4F;
+}
+
+.amount-expense {
+  color: #07C160;
+}
+
+.amount-asset {
+  color: #42A5F5;
+}
+
+/* 资产变动明细（与首页最近记录一致） */
+.record-list {
+  padding: 8rpx 24rpx;
+}
+
+/* 左滑容器 */
+.record-swipe {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1rpx solid #F5F5F5;
+}
+
+.record-swipe:last-child {
+  border-bottom: none;
+}
+
+/* 底部操作按钮 */
+.record-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+.record-action {
+  width: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  color: #fff;
+}
+
+.record-action.edit {
+  background: #07C160;
+}
+
+.record-action.delete {
+  background: #FF4D4F;
+}
+
+.record-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 24rpx 8rpx;
+  background: #fff;
+}
+
+.record-item:last-child {
+  border-bottom: none;
+}
+
+.record-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  margin-right: 24rpx;
+}
+
+.record-info {
+  flex: 1;
+}
+
+.record-name {
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.record-meta {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.record-amount {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+/* 按日分组 */
+.day-header {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 24rpx 8rpx 8rpx;
+}
+
+.day-date {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+}
+
+.day-line {
+  flex: 1;
+  height: 1rpx;
+  background: #E5E5E5;
+}
+
+.item-edit {
+  font-size: 24rpx;
+  color: #07C160;
+  padding: 8rpx 20rpx;
+  border-radius: 28rpx;
+  background: #E8F8EF;
+}
+
+/* 添加资产 */
+.add-wrap {
+  padding: 40rpx 24rpx;
+}
+
+/* 编辑弹层 */
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+}
+
+.editor {
+  width: 100%;
+  background: #fff;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 40rpx 32rpx 48rpx;
+  box-sizing: border-box;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.editor-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 32rpx;
+}
+
+.editor-field {
+  margin-bottom: 28rpx;
+}
+
+.editor-label {
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 16rpx;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 24rpx;
+  margin-top: 40rpx;
+}
+
+.editor-btn {
+  flex: 1;
+  border-radius: 40rpx;
+  font-size: 30rpx;
+  padding: 22rpx 0;
+  text-align: center;
+  border: none;
+  line-height: 1.4;
+}
+
+.editor-btn::after {
+  border: none;
+}
+
+.editor-btn.cancel {
+  background: #F0F2F0;
+  color: #666;
+}
+
+.editor-btn.save {
+  background: linear-gradient(135deg, #07C160 0%, #10D96F 100%);
+  color: #fff;
+}
+
+/* 流动资产趋势 */
+.trend-card {
+  padding: 24rpx 24rpx 16rpx;
+}
+
+.trend-tabs {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.trend-tab {
+  padding: 10rpx 28rpx;
+  border-radius: 28rpx;
+  font-size: 24rpx;
+  color: #666;
+  background: #F0F2F0;
+  transition: all 0.2s ease;
+}
+
+.trend-tab.active {
+  background: linear-gradient(135deg, #07C160 0%, #10D96F 100%);
+  color: #fff;
+  box-shadow: 0 4rpx 12rpx rgba(7, 193, 96, 0.3);
+}

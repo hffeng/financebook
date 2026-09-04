@@ -1,0 +1,137 @@
+<view class="page">
+  <!-- 贷款类型 -->
+  <view class="card">
+    <view class="form-item">
+      <view class="form-label">贷款类型</view>
+      <view class="type-row">
+        <view class="type-option {{loanType === 'gjj' ? 'selected' : ''}}" bindtap="onLoanTypeChange" data-type="gjj">公积金</view>
+        <view class="type-option {{loanType === 'commercial' ? 'selected' : ''}}" bindtap="onLoanTypeChange" data-type="commercial">商业贷款</view>
+        <view class="type-option {{loanType === 'combined' ? 'selected' : ''}}" bindtap="onLoanTypeChange" data-type="combined">组合贷款</view>
+      </view>
+    </view>
+
+    <!-- 组合贷款：贷款总金额 -->
+    <view class="form-item" wx:if="{{loanType === 'combined'}}">
+      <view class="form-label">贷款总金额（万元）</view>
+      <input class="form-input" type="digit" placeholder="请输入贷款总金额" placeholder-class="form-placeholder" value="{{combinedTotalAmount}}" data-field="combinedTotalAmount" bindinput="onInput" cursor-spacing="30" adjust-position="{{false}}" />
+    </view>
+
+    <!-- 公积金贷款金额（公积金贷款 / 组合贷款） -->
+    <view class="form-item" wx:if="{{loanType !== 'commercial'}}">
+      <view class="form-label-row">
+        <view class="form-label">公积金贷款金额（万元）</view>
+        <view class="manual-toggle" bindtap="onToggleManual" data-field="gjjAmount">{{manual.gjjAmount ? '选择' : '手动输入'}}</view>
+      </view>
+      <picker wx:if="{{!manual.gjjAmount}}" mode="selector" range="{{gjjAmountOptions}}" range-key="label" value="{{gjjAmountIndex}}" bindchange="onGjjAmountChange">
+        <view class="form-input picker-input">
+          <text>{{gjjAmountOptions[gjjAmountIndex].label}}</text>
+          <text class="picker-arrow">▾</text>
+        </view>
+      </picker>
+      <input wx:else class="form-input" type="digit" placeholder="请输入公积金贷款金额" placeholder-class="form-placeholder" value="{{gjjLoanAmount}}" data-field="gjjLoanAmount" bindinput="onInput" cursor-spacing="30" adjust-position="{{false}}" />
+    </view>
+
+    <!-- 商业贷款金额（商业贷款 / 组合贷款） -->
+    <view class="form-item" wx:if="{{loanType !== 'gjj'}}">
+      <view class="form-label">商业贷款金额（万元）</view>
+      <input class="form-input" type="digit" placeholder="请输入商业贷款金额" placeholder-class="form-placeholder" value="{{commercialLoanAmount}}" data-field="commercialLoanAmount" bindinput="onInput" cursor-spacing="30" adjust-position="{{false}}" />
+    </view>
+
+    <!-- 贷款年限 -->
+    <view class="form-item">
+      <view class="form-label">贷款年限（年）</view>
+      <view class="year-row">
+        <view class="year-option {{years === item ? 'selected' : ''}}" wx:for="{{yearOptions}}" wx:key="*this" bindtap="onYearsChange" data-years="{{item}}">{{item}}年</view>
+      </view>
+    </view>
+
+    <!-- 公积金贷款利率（公积金贷款 / 组合贷款） -->
+    <view class="form-item" wx:if="{{loanType !== 'commercial'}}">
+      <view class="form-label-row">
+        <view class="form-label">公积金贷款利率</view>
+        <view class="manual-toggle" bindtap="onToggleManual" data-field="rate">{{manual.rate ? '选择' : '手动输入'}}</view>
+      </view>
+      <picker wx:if="{{!manual.rate}}" mode="selector" range="{{rateOptions}}" range-key="label" value="{{rateIndex}}" bindchange="onRateChange">
+        <view class="form-input picker-input">
+          <text>{{rateOptions[rateIndex].label}}</text>
+          <text class="picker-arrow">▾</text>
+        </view>
+      </picker>
+      <input wx:else class="form-input" type="digit" placeholder="请输入年利率" placeholder-class="form-placeholder" value="{{rateInput}}" data-field="rateInput" bindinput="onInput" cursor-spacing="30" adjust-position="{{false}}" />
+      <view class="rate-tip" wx:if="{{loanType === 'gjj'}}">上海公积金贷款利率（按最新政策）</view>
+    </view>
+
+    <!-- 商业贷款利率（商业贷款 / 组合贷款） -->
+    <view class="form-item" wx:if="{{loanType !== 'gjj'}}">
+      <view class="form-label-row">
+        <view class="form-label">商业贷款利率</view>
+        <view class="manual-toggle" bindtap="onToggleManual" data-field="commercialRate">{{manual.commercialRate ? '选择' : '手动输入'}}</view>
+      </view>
+      <picker wx:if="{{!manual.commercialRate}}" mode="selector" range="{{commercialRateOptions}}" range-key="label" value="{{commercialRateIndex}}" bindchange="onCommercialRateChange">
+        <view class="form-input picker-input">
+          <text>{{commercialRateOptions[commercialRateIndex].label}}</text>
+          <text class="picker-arrow">▾</text>
+        </view>
+      </picker>
+      <input wx:else class="form-input" type="digit" placeholder="请输入商业贷款年利率" placeholder-class="form-placeholder" value="{{commercialRateInput}}" data-field="commercialRateInput" bindinput="onInput" cursor-spacing="30" adjust-position="{{false}}" />
+      <view class="rate-tip" wx:if="{{loanType === 'commercial'}}">上海商业贷款利率（按最新政策）</view>
+    </view>
+
+    <!-- 还款方式 -->
+    <view class="form-item">
+      <view class="form-label">还款方式</view>
+      <view class="type-row">
+        <view class="type-option {{method === 'debx' ? 'selected' : ''}}" bindtap="onMethodChange" data-method="debx">等额本息</view>
+        <view class="type-option {{method === 'debj' ? 'selected' : ''}}" bindtap="onMethodChange" data-method="debj">等额本金</view>
+      </view>
+    </view>
+
+    <button class="btn-primary calc-btn" bindtap="onCalc">开始计算</button>
+  </view>
+
+  <!-- 计算结果 -->
+  <view class="card result-card" wx:if="{{calculated}}">
+    <view class="result-head">
+      <view class="result-title">计算结果</view>
+      <view class="result-badge">{{method === 'debj' ? '等额本金' : '等额本息'}}</view>
+    </view>
+
+    <view class="result-main">
+      <view class="result-label">月供</view>
+      <view class="result-value">¥{{monthlyText}}</view>
+      <view class="result-sub" wx:if="{{method === 'debj'}}">首月 ¥{{firstMonthText}}，每月递减 ¥{{decreaseText}}</view>
+    </view>
+
+    <view class="result-actual">
+      <view class="actual-row">
+        <view class="actual-info">
+          <view class="result-label">实际月供</view>
+          <view class="result-sub">月供 ¥{{monthlyText}} - 公积金 ¥{{housingFundTotalText}} {{propertyIncomeDisplay}}</view>
+        </view>
+        <view class="actual-value">¥{{actualMonthlyText}}</view>
+      </view>
+    </view>
+
+    <view class="result-grid">
+      <view class="result-cell">
+        <view class="cell-label">贷款总额</view>
+        <view class="cell-value">¥{{totalLoanText}}</view>
+      </view>
+      <view class="result-cell">
+        <view class="cell-label">支付利息</view>
+        <view class="cell-value">¥{{totalInterestText}}</view>
+      </view>
+      <view class="result-cell">
+        <view class="cell-label">还款总额</view>
+        <view class="cell-value">¥{{totalPaymentText}}</view>
+      </view>
+      <view class="result-cell">
+        <view class="cell-label">还款月数</view>
+        <view class="cell-value">{{months}} 个月</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 免责说明 -->
+  <view class="disclaimer">以上结果仅供参考，实际以银行审批为准</view>
+</view>

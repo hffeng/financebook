@@ -1,0 +1,95 @@
+<view class="page">
+  <!-- 总资产卡片 -->
+  <view class="hero" bindtap="onAssetTap">
+    <view class="hero-label">家庭总资产 <text class="hero-enter">查看构成 ›</text></view>
+    <view class="hero-amount">¥{{totalBalance}}</view>
+    <view class="hero-growth">
+      <view class="growth-item">
+        <view class="growth-label">本月新增</view>
+        <view class="growth-value">
+          <text class="growth-arrow" style="color:{{monthGrowthPositive ? '#FF3B30' : '#FFFFFF'}}">{{monthGrowthPositive ? '▲' : '▼'}}</text>
+          <text class="growth-sign" style="color:{{monthGrowthPositive ? '#FF3B30' : '#FFFFFF'}}">{{monthGrowthPositive ? '+' : '-'}}</text>
+          <text class="growth-amount" style="color:{{monthGrowthPositive ? '#FF3B30' : '#FFFFFF'}}">¥{{monthGrowthText}}</text>
+        </view>
+      </view>
+      <view class="growth-divider"></view>
+      <view class="growth-item">
+        <view class="growth-label">本年新增</view>
+        <view class="growth-value">
+          <text class="growth-arrow" style="color:{{yearGrowthPositive ? '#FF3B30' : '#FFFFFF'}}">{{yearGrowthPositive ? '▲' : '▼'}}</text>
+          <text class="growth-sign" style="color:{{yearGrowthPositive ? '#FF3B30' : '#FFFFFF'}}">{{yearGrowthPositive ? '+' : '-'}}</text>
+          <text class="growth-amount" style="color:{{yearGrowthPositive ? '#FF3B30' : '#FFFFFF'}}">¥{{yearGrowthText}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 资产构成 -->
+  <view class="card section-card">
+    <view class="section-header">
+      <text class="section-title">资产构成</text>
+      <text class="section-more" bindtap="onAssetTap">查看详情 ›</text>
+    </view>
+    <asset-chart type="pie" pie-data="{{pieData}}"></asset-chart>
+    <view class="pie-legend" wx:if="{{pieData.length > 0}}">
+      <view class="legend-item" wx:for="{{pieData}}" wx:key="name">
+        <view class="legend-dot" style="background:{{item.color}};"></view>
+        <view class="legend-name">{{item.name}}</view>
+        <view class="legend-amount">¥{{item.valueText}}</view>
+      </view>
+    </view>
+    <view class="empty" wx:else>暂无资产数据</view>
+  </view>
+
+  <!-- 资产趋势 -->
+  <view class="card trend-card">
+    <view class="trend-header">
+      <text class="trend-title">流动资产趋势</text>
+      <view class="trend-tabs">
+        <view class="trend-tab {{trendRange === 'halfYear' ? 'active' : ''}}" bindtap="onRangeChange" data-range="halfYear">最近半年</view>
+        <view class="trend-tab {{trendRange === 'year' ? 'active' : ''}}" bindtap="onRangeChange" data-range="year">最近一年</view>
+        <view class="trend-tab {{trendRange === 'threeYear' ? 'active' : ''}}" bindtap="onRangeChange" data-range="threeYear">最近三年</view>
+      </view>
+    </view>
+    <asset-chart type="line" line-data="{{trendData}}" line-color="#07C160" hide-amount="{{hideAmount}}"></asset-chart>
+  </view>
+
+  <!-- 最近记录（按日分组） -->
+  <view class="section-title">最近记录</view>
+  <view class="card record-list" wx:if="{{dailyGroups.length > 0}}">
+    <block wx:for="{{dailyGroups}}" wx:key="date" wx:for-item="group">
+      <view class="day-header">
+        <text class="day-date">{{group.dateText}}</text>
+        <view class="day-line"></view>
+      </view>
+      <view class="record-swipe" wx:for="{{group.items}}" wx:key="swipeKey" wx:for-item="item"
+        data-key="{{item.swipeKey}}"
+        bindtouchstart="onTouchStart"
+        bindtouchmove="onTouchMove"
+        bindtouchend="onTouchEnd"
+        bindtouchcancel="onTouchEnd">
+        <view class="record-actions">
+          <view class="record-action edit" bindtap="onEditRecord" data-key="{{item.swipeKey}}" data-id="{{item.id}}" data-recordtype="{{item.recordType}}">编辑</view>
+          <view class="record-action delete" bindtap="onDeleteRecord" data-key="{{item.swipeKey}}" data-id="{{item.id}}" data-recordtype="{{item.recordType}}" data-name="{{item.categoryName}}">删除</view>
+        </view>
+        <view class="record-item" style="transform: translateX({{swipeKey === item.swipeKey ? swipeOffset : 0}}px);" bindtap="onRecordTap" data-id="{{item.id}}" data-recordtype="{{item.recordType}}">
+          <view class="record-icon" style="background:{{item.color}}1A;">
+            <text>{{item.icon}}</text>
+          </view>
+          <view class="record-info">
+            <view class="record-name">{{item.categoryName}}</view>
+            <view class="record-meta">{{item.memberName}}</view>
+          </view>
+          <view class="record-amount {{item.type === 'income' ? 'amount-income' : (item.type === 'expense' ? 'amount-expense' : 'amount-asset')}}">
+            {{item.sign}}¥{{item.amountText}}
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class="empty" wx:else>
+    <text class="empty-icon">📒</text>
+    <view>还没有记账记录</view>
+    <view class="empty-tip">点击下方「记账」开始记录</view>
+  </view>
+</view>

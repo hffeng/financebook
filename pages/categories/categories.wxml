@@ -1,0 +1,181 @@
+<view class="page">
+  <!-- 分类列表（微信「我的」风格分组列表） -->
+  <view class="cat-list">
+    <!-- 支出分类 -->
+    <view class="cat-group">
+      <view class="group-head" bindtap="onToggleSection" data-type="expense">
+        <view class="group-icon expense">💸</view>
+        <view class="group-name">支出分类</view>
+        <view class="group-count">{{expenseCats.length}}</view>
+        <view class="group-arrow {{collapsed.expense ? 'open' : ''}}">›</view>
+      </view>
+      <view class="group-body" wx:if="{{!collapsed.expense}}">
+        <view class="cat-row" wx:for="{{expenseCats}}" wx:key="id">
+          <view class="cat-icon" style="background:{{item.color}}1A;">
+            <text>{{item.icon}}</text>
+          </view>
+          <view class="cat-name">{{item.name}}</view>
+          <view class="cat-actions">
+            <view class="action-btn" bindtap="onEdit" data-id="{{item.id}}">编辑</view>
+            <view class="action-btn danger" wx:if="{{!item.isDefault}}" bindtap="onDelete" data-id="{{item.id}}">删除</view>
+          </view>
+        </view>
+        <view class="empty" wx:if="{{expenseCats.length === 0}}">暂无支出分类</view>
+      </view>
+    </view>
+
+    <!-- 收入分类 -->
+    <view class="cat-group">
+      <view class="group-head" bindtap="onToggleSection" data-type="income">
+        <view class="group-icon income">💰</view>
+        <view class="group-name">收入分类</view>
+        <view class="group-count">{{incomeCats.length}}</view>
+        <view class="group-arrow {{collapsed.income ? 'open' : ''}}">›</view>
+      </view>
+      <view class="group-body" wx:if="{{!collapsed.income}}">
+        <view class="cat-row" wx:for="{{incomeCats}}" wx:key="id">
+          <view class="cat-icon" style="background:{{item.color}}1A;">
+            <text>{{item.icon}}</text>
+          </view>
+          <view class="cat-name">{{item.name}}</view>
+          <view class="cat-actions">
+            <view class="action-btn" bindtap="onEdit" data-id="{{item.id}}">编辑</view>
+            <view class="action-btn danger" wx:if="{{!item.isDefault}}" bindtap="onDelete" data-id="{{item.id}}">删除</view>
+          </view>
+        </view>
+        <view class="empty" wx:if="{{incomeCats.length === 0}}">暂无收入分类</view>
+      </view>
+    </view>
+
+    <!-- 流动资产分类 -->
+    <view class="cat-group">
+      <view class="group-head" bindtap="onToggleSection" data-type="asset_personal">
+        <view class="group-icon asset">🏦</view>
+        <view class="group-name">流动资产分类</view>
+        <view class="group-count">{{personalAssetCats.length}}</view>
+        <view class="group-arrow {{collapsed.asset_personal ? 'open' : ''}}">›</view>
+      </view>
+      <view class="group-body" wx:if="{{!collapsed.asset_personal}}">
+        <view class="cat-row" wx:for="{{personalAssetCats}}" wx:key="id">
+          <view class="cat-icon" style="background:{{item.color}}1A;">
+            <text>{{item.icon}}</text>
+          </view>
+          <view class="cat-name">{{item.name}}</view>
+          <view class="cat-actions">
+            <view class="action-btn" bindtap="onEdit" data-id="{{item.id}}">编辑</view>
+            <view class="action-btn danger" wx:if="{{!item.isDefault}}" bindtap="onDelete" data-id="{{item.id}}">删除</view>
+          </view>
+        </view>
+        <view class="empty" wx:if="{{personalAssetCats.length === 0}}">暂无流动资产分类</view>
+      </view>
+    </view>
+
+    <!-- 非流动资产分类 -->
+    <view class="cat-group">
+      <view class="group-head" bindtap="onToggleSection" data-type="asset_family">
+        <view class="group-icon asset">🏠</view>
+        <view class="group-name">非流动资产分类</view>
+        <view class="group-count">{{familyAssetCats.length}}</view>
+        <view class="group-arrow {{collapsed.asset_family ? 'open' : ''}}">›</view>
+      </view>
+      <view class="group-body" wx:if="{{!collapsed.asset_family}}">
+        <view class="cat-row" wx:for="{{familyAssetCats}}" wx:key="id">
+          <view class="cat-icon" style="background:{{item.color}}1A;">
+            <text>{{item.icon}}</text>
+          </view>
+          <view class="cat-name">{{item.name}}</view>
+          <view class="cat-actions">
+            <view class="action-btn" bindtap="onEdit" data-id="{{item.id}}">编辑</view>
+            <view class="action-btn danger" wx:if="{{!item.isDefault}}" bindtap="onDelete" data-id="{{item.id}}">删除</view>
+          </view>
+        </view>
+        <view class="empty" wx:if="{{familyAssetCats.length === 0}}">暂无非流动资产分类</view>
+      </view>
+    </view>
+
+    <!-- 负债分类 -->
+    <view class="cat-group">
+      <view class="group-head" bindtap="onToggleSection" data-type="liability">
+        <view class="group-icon liability">💳</view>
+        <view class="group-name">负债分类</view>
+        <view class="group-count">{{liabilityCats.length}}</view>
+        <view class="group-arrow {{collapsed.liability ? 'open' : ''}}">›</view>
+      </view>
+      <view class="group-body" wx:if="{{!collapsed.liability}}">
+        <view class="cat-row" wx:for="{{liabilityCats}}" wx:key="id">
+          <view class="cat-icon" style="background:{{item.color}}1A;">
+            <text>{{item.icon}}</text>
+          </view>
+          <view class="cat-name">{{item.name}}</view>
+          <view class="cat-actions">
+            <view class="action-btn" bindtap="onEdit" data-id="{{item.id}}">编辑</view>
+            <view class="action-btn danger" wx:if="{{!item.isDefault}}" bindtap="onDelete" data-id="{{item.id}}">删除</view>
+          </view>
+        </view>
+        <view class="empty" wx:if="{{liabilityCats.length === 0}}">暂无负债分类</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 悬浮添加按钮 -->
+  <view class="fab" bindtap="onAdd">
+    <text class="fab-icon">＋</text>
+    <text class="fab-text">添加分类</text>
+  </view>
+
+  <!-- 编辑弹层 -->
+  <view class="mask" wx:if="{{showEditor}}" bindtap="onEditorClose">
+    <view class="editor" style="margin-bottom:{{keyboardHeight}}px;" catchtap="noop">
+      <view class="editor-title">{{editId ? '编辑分类' : '添加分类'}}</view>
+
+      <view class="editor-type">
+        <view class="etype-btn {{editType === 'expense' ? 'active expense' : ''}}" bindtap="onEditorTypeChange" data-type="expense">
+          <text class="etype-icon">💸</text>
+          <text>支出</text>
+        </view>
+        <view class="etype-btn {{editType === 'income' ? 'active income' : ''}}" bindtap="onEditorTypeChange" data-type="income">
+          <text class="etype-icon">💰</text>
+          <text>收入</text>
+        </view>
+        <view class="etype-btn {{editType === 'asset_personal' ? 'active asset' : ''}}" bindtap="onEditorTypeChange" data-type="asset_personal">
+          <text class="etype-icon">🏦</text>
+          <text>流动资产</text>
+        </view>
+        <view class="etype-btn {{editType === 'asset_family' ? 'active asset' : ''}}" bindtap="onEditorTypeChange" data-type="asset_family">
+          <text class="etype-icon">🏠</text>
+          <text>非流动资产</text>
+        </view>
+        <view class="etype-btn {{editType === 'liability' ? 'active liability' : ''}}" bindtap="onEditorTypeChange" data-type="liability">
+          <text class="etype-icon">💳</text>
+          <text>负债</text>
+        </view>
+      </view>
+
+      <view class="editor-field">
+        <view class="editor-label">名称</view>
+        <input class="input-field" placeholder="请输入分类名称" value="{{editName}}" bindinput="onNameInput"
+          bindkeyboardheightchange="onKeyboardHeightChange" cursor-spacing="30" adjust-position="{{false}}" />
+      </view>
+
+      <view class="editor-field" wx:if="{{editType === 'income' || editType === 'expense'}}">
+        <view class="editor-label">默认金额（元）</view>
+        <input class="input-field" type="digit" placeholder="选此分类时自动填入，可留空" value="{{editDefaultAmount}}" bindinput="onDefaultAmountInput"
+          bindkeyboardheightchange="onKeyboardHeightChange" cursor-spacing="30" adjust-position="{{false}}" />
+      </view>
+
+      <view class="editor-field">
+        <view class="editor-label">图标</view>
+        <scroll-view scroll-x class="icon-scroll" show-scrollbar="{{false}}">
+          <view class="icon-list">
+            <view class="icon-item {{editIcon === item ? 'selected' : ''}}" wx:for="{{icons}}" wx:key="*this" bindtap="onIconSelect" data-icon="{{item}}">{{item}}</view>
+          </view>
+        </scroll-view>
+      </view>
+
+      <view class="editor-actions">
+        <button class="editor-btn cancel" bindtap="onEditorClose">取消</button>
+        <button class="editor-btn save" bindtap="onEditorSave">保存</button>
+      </view>
+    </view>
+  </view>
+</view>

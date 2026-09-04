@@ -1,0 +1,112 @@
+<view class="page">
+  <!-- 资产总额 -->
+  <view class="total-card">
+    <view class="total-label">{{title}}</view>
+    <view class="total-amount">¥{{totalText}}</view>
+    <view class="hero-sub">
+      <view class="hero-sub-item">
+        <view class="sub-label">流动资产</view>
+        <view class="sub-value">¥{{personalTotalText}}</view>
+      </view>
+      <view class="hero-sub-divider"></view>
+      <view class="hero-sub-item">
+        <view class="sub-label">非流动资产</view>
+        <view class="sub-value">¥{{familyTotalText}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 构成明细（默认折叠） -->
+  <view class="asset-group">
+    <view class="group-head" bindtap="onToggleItems">
+      <view class="group-icon asset">🏦</view>
+      <view class="group-name">资产构成</view>
+      <view class="group-count">{{items.length}}</view>
+      <view class="group-arrow {{itemsCollapsed ? 'open' : ''}}">›</view>
+    </view>
+    <view class="group-body" wx:if="{{!itemsCollapsed}}">
+      <view class="item-row" wx:for="{{items}}" wx:key="category" bindtap="onItemTap" data-category="{{item.category}}">
+        <view class="item-icon">{{item.icon}}</view>
+        <view class="item-info">
+          <view class="item-name">{{item.categoryName}}</view>
+          <view class="item-tip">点击编辑金额</view>
+        </view>
+        <view class="item-amount">¥{{item.amountText}}</view>
+        <view class="item-edit">编辑</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 流动资产趋势（仅个人资产） -->
+  <block wx:if="{{scope === 'personal'}}">
+    <view class="section-title">流动资产趋势</view>
+    <view class="card trend-card">
+      <view class="trend-tabs">
+        <view class="trend-tab {{trendRange === '30d' ? 'active' : ''}}" bindtap="onTrendRangeChange" data-range="30d">最近30天</view>
+        <view class="trend-tab {{trendRange === '6m' ? 'active' : ''}}" bindtap="onTrendRangeChange" data-range="6m">最近半年</view>
+        <view class="trend-tab {{trendRange === '1y' ? 'active' : ''}}" bindtap="onTrendRangeChange" data-range="1y">最近一年</view>
+      </view>
+      <asset-chart type="line" line-data="{{ {labels: trendLabels, values: trendValues} }}" line-color="#07C160" hide-amount="{{hideAmount}}" target-line="{{trendTarget}}"></asset-chart>
+    </view>
+  </block>
+
+  <!-- 资产变动明细（仅个人资产） -->
+  <block wx:if="{{scope === 'personal'}}">
+    <view class="section-title">资产变动明细</view>
+    <view class="card record-list" wx:if="{{assetRecords.length > 0}}">
+      <block wx:for="{{assetRecords}}" wx:key="date" wx:for-item="group">
+        <view class="day-header">
+          <text class="day-date">{{group.dateText}}</text>
+          <view class="day-line"></view>
+        </view>
+        <view class="record-swipe" wx:for="{{group.items}}" wx:key="swipeKey" wx:for-item="item"
+          data-key="{{item.swipeKey}}"
+          bindtouchstart="onTouchStart"
+          bindtouchmove="onTouchMove"
+          bindtouchend="onTouchEnd"
+          bindtouchcancel="onTouchEnd">
+          <view class="record-actions">
+            <view class="record-action edit" bindtap="onEditRecord" data-key="{{item.swipeKey}}" data-id="{{item.id}}" data-recordtype="{{item.recordType}}">编辑</view>
+            <view class="record-action delete" bindtap="onDeleteRecord" data-key="{{item.swipeKey}}" data-id="{{item.id}}" data-recordtype="{{item.recordType}}" data-name="{{item.categoryName}}">删除</view>
+          </view>
+          <view class="record-item" style="transform: translateX({{swipeKey === item.swipeKey ? swipeOffset : 0}}px);" bindtap="onRecordTap" data-id="{{item.id}}" data-recordtype="{{item.recordType}}">
+            <view class="record-icon" style="background:{{item.color}}1A;">
+              <text>{{item.icon}}</text>
+            </view>
+            <view class="record-info">
+              <view class="record-name">{{item.categoryName}}</view>
+              <view class="record-meta">{{item.memberName}}</view>
+            </view>
+            <view class="record-amount {{item.type === 'income' ? 'amount-income' : (item.type === 'expense' ? 'amount-expense' : 'amount-asset')}}">
+              {{item.sign}}¥{{item.amountText}}
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="empty" wx:else>暂无资产变动记录</view>
+
+    <!-- 添加资产 -->
+    <view class="add-wrap">
+      <button class="btn-primary" bindtap="onAddAsset">添加资产</button>
+    </view>
+  </block>
+
+  <!-- 编辑弹层 -->
+  <view class="mask" wx:if="{{showEditor}}" bindtap="onEditorClose">
+    <view class="editor" style="margin-bottom:{{keyboardHeight}}px;" catchtap="noop">
+      <view class="editor-title">{{editIcon}} {{editCategoryName}}</view>
+      <view class="editor-field">
+        <view class="editor-label">资产金额</view>
+        <input class="input-field" type="digit" placeholder="{{editAmountFocus ? '' : '请输入金额'}}" value="{{editAmount}}"
+          bindinput="onAmountInput" bindfocus="onAmountFocus" bindblur="onAmountBlur"
+          bindkeyboardheightchange="onKeyboardHeightChange" cursor-spacing="30" adjust-position="{{false}}" />
+      </view>
+      <view class="editor-actions">
+        <button class="editor-btn cancel" bindtap="onEditorClose">取消</button>
+        <button class="editor-btn save" bindtap="onEditorSave">保存</button>
+      </view>
+    </view>
+  </view>
+
+</view>

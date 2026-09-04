@@ -1,0 +1,16 @@
+# 微信开发者工具私有配置（含个人账号信息，不应提交）
+project.private.config.json
+
+# IDE 项目数据目录
+.codebuddy/
+
+# 依赖与构建产物
+node_modules/
+miniprogram_npm/
+dist/
+build/
+
+# 日志与临时文件
+*.log
+.DS_Store
+Thumbs.db

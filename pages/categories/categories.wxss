@@ -1,0 +1,305 @@
+.page {
+  padding-bottom: 200rpx;
+}
+
+/* 分类列表（微信「我的」风格分组列表） */
+.cat-list {
+  margin: 0 24rpx;
+}
+
+.cat-group {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 24rpx;
+  overflow: hidden;
+}
+
+.group-head {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 32rpx;
+}
+
+.group-head:active {
+  background: #F7F8FA;
+}
+
+.group-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  margin-right: 20rpx;
+}
+
+.group-icon.expense {
+  background: #FFF1F0;
+}
+
+.group-icon.income {
+  background: #E8F8EF;
+}
+
+.group-icon.asset {
+  background: #E8F4FD;
+}
+
+.group-icon.liability {
+  background: #FFF3E8;
+}
+
+.group-name {
+  flex: 1;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #1A1A1A;
+}
+
+.group-count {
+  font-size: 26rpx;
+  color: #999;
+  margin-right: 12rpx;
+}
+
+.group-arrow {
+  font-size: 36rpx;
+  color: #CCCCCC;
+  transition: transform 0.2s ease;
+}
+
+.group-arrow.open {
+  transform: rotate(90deg);
+}
+
+.group-body {
+  border-top: 1rpx solid #F5F5F5;
+  padding: 8rpx 24rpx;
+}
+
+.cat-row {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 8rpx;
+  border-bottom: 1rpx solid #F5F5F5;
+}
+
+.cat-row:last-child {
+  border-bottom: none;
+}
+
+.cat-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  margin-right: 20rpx;
+}
+
+.cat-name {
+  flex: 1;
+  font-size: 28rpx;
+}
+
+.cat-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.action-btn {
+  font-size: 24rpx;
+  color: #07C160;
+  padding: 10rpx 20rpx;
+  border-radius: 28rpx;
+  background: #E8F8EF;
+}
+
+.action-btn.danger {
+  color: #FF4D4F;
+  background: #FFF1F0;
+}
+
+/* 悬浮添加按钮 */
+.fab {
+  position: fixed;
+  right: 32rpx;
+  bottom: calc(140rpx + env(safe-area-inset-bottom));
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 22rpx 36rpx;
+  border-radius: 48rpx;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(7, 193, 96, 0.35);
+  transition: transform 0.15s ease;
+}
+
+.fab:active {
+  transform: scale(0.95);
+}
+
+.fab-icon {
+  font-size: 40rpx;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.fab-text {
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+/* 编辑弹层 */
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.editor {
+  width: 100%;
+  background: #fff;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 40rpx 32rpx calc(48rpx + 140rpx);
+  box-sizing: border-box;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.editor-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 32rpx;
+}
+
+.editor-type {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+  margin-bottom: 32rpx;
+}
+
+.etype-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 24rpx 0;
+  border-radius: 24rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #666;
+  background: #F5F7F5;
+  border: 2rpx solid transparent;
+  transition: all 0.2s ease;
+}
+
+.etype-icon {
+  font-size: 34rpx;
+  line-height: 1;
+}
+
+.etype-btn.active {
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.12);
+  transform: translateY(-2rpx);
+}
+
+.etype-btn.active.expense {
+  background: linear-gradient(135deg, #FF4D4F 0%, #FF7875 100%);
+}
+
+.etype-btn.active.income {
+  background: linear-gradient(135deg, #07C160 0%, #10D96F 100%);
+}
+
+.etype-btn.active.asset {
+  background: linear-gradient(135deg, #42A5F5 0%, #64B5F6 100%);
+}
+
+.etype-btn.active.liability {
+  background: linear-gradient(135deg, #FF7043 0%, #FF8A65 100%);
+}
+
+.editor-field {
+  margin-bottom: 28rpx;
+}
+
+.editor-label {
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 16rpx;
+}
+
+.icon-scroll {
+  white-space: nowrap;
+}
+
+.icon-list {
+  display: inline-flex;
+  gap: 16rpx;
+}
+
+.icon-item {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  background: #F5F7F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  border: 3rpx solid transparent;
+  box-sizing: border-box;
+}
+
+.icon-item.selected {
+  border-color: #07C160;
+  background: #E8F8EF;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 24rpx;
+  margin-top: 40rpx;
+}
+
+.editor-btn {
+  flex: 1;
+  border-radius: 40rpx;
+  font-size: 30rpx;
+  padding: 22rpx 0;
+  text-align: center;
+  border: none;
+  line-height: 1.4;
+}
+
+.editor-btn::after {
+  border: none;
+}
+
+.editor-btn.cancel {
+  background: #F0F2F0;
+  color: #666;
+}
+
+.editor-btn.save {
+  background: linear-gradient(135deg, #07C160 0%, #10D96F 100%);
+  color: #fff;
+}

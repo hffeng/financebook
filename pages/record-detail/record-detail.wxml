@@ -1,0 +1,45 @@
+<view class="page" wx:if="{{record}}">
+  <!-- 顶部金额卡片 -->
+  <view class="hero {{record.type}}">
+    <view class="hero-icon" style="background:{{record.type === 'income' ? '#FF4D4F' : (record.type === 'expense' ? '#07C160' : '#42A5F5')}}1A;">
+      <text>{{record.icon}}</text>
+    </view>
+    <view class="hero-type">{{record.typeName}}</view>
+    <view class="hero-amount {{record.type}}">{{record.sign}}¥{{record.amountText}}</view>
+    <view class="hero-category">{{record.categoryName}}</view>
+  </view>
+
+  <!-- 详情列表 -->
+  <view class="card detail-card">
+    <view class="detail-row">
+      <view class="detail-label">类型</view>
+      <view class="detail-value">{{record.typeName}}</view>
+    </view>
+    <view class="detail-row" wx:if="{{record.scopeName}}">
+      <view class="detail-label">资产大类</view>
+      <view class="detail-value">{{record.scopeName}}</view>
+    </view>
+    <view class="detail-row">
+      <view class="detail-label">分类</view>
+      <view class="detail-value">{{record.categoryName}}</view>
+    </view>
+    <view class="detail-row">
+      <view class="detail-label">记账成员</view>
+      <view class="detail-value">{{record.memberName}}</view>
+    </view>
+    <view class="detail-row">
+      <view class="detail-label">日期</view>
+      <view class="detail-value">{{record.dateText}}</view>
+    </view>
+    <view class="detail-row" wx:if="{{record.remark}}">
+      <view class="detail-label">备注</view>
+      <view class="detail-value">{{record.remark}}</view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="actions">
+    <button class="action-btn edit" bindtap="onEdit">编辑</button>
+    <button class="action-btn delete" bindtap="onDelete">删除</button>
+  </view>
+</view>

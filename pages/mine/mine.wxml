@@ -1,0 +1,153 @@
+<view class="page">
+  <!-- 财务目标 -->
+  <view class="section-title">财务目标</view>
+
+  <view class="goal-list" wx:if="{{goals.length > 0}}">
+    <view class="card goal-card" wx:for="{{goals}}" wx:key="id">
+      <view class="goal-card-head">
+        <view class="goal-icon" style="background:{{item.color}}1A;">{{item.icon}}</view>
+        <view class="goal-info">
+          <view class="goal-name">{{item.name}}</view>
+          <view class="goal-tags">
+            <text class="goal-type-tag {{item.type === 'personal' ? 'personal' : ''}}">{{item.typeText}}</text>
+            <text class="goal-member-tag" wx:if="{{item.memberName}}">{{item.memberName}}</text>
+            <text class="goal-calc" wx:if="{{item.type === 'family' && item.calcText}}">{{item.calcText}}</text>
+          </view>
+        </view>
+        <view class="goal-percent">{{item.percent}}%</view>
+      </view>
+      <view class="goal-progress">
+        <view class="goal-progress-bar" style="width:{{item.percent}}%;background:{{item.color}};"></view>
+      </view>
+      <view class="goal-card-foot">
+        <view class="goal-amount">¥{{item.currentText}} / ¥{{item.targetText}}</view>
+        <view class="goal-actions">
+          <view class="goal-btn" bindtap="onEditGoal" data-id="{{item.id}}">编辑</view>
+          <view class="goal-btn danger" bindtap="onDeleteGoal" data-id="{{item.id}}">删除</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="empty" wx:else>
+    <text class="empty-icon">🎯</text>
+    <view>还没有财务目标</view>
+    <view class="empty-tip">点击下方「添加目标」开始规划</view>
+  </view>
+
+  <!-- 财务目标管理 -->
+  <view class="section-title">财务目标管理</view>
+  <view class="add-wrap">
+    <button class="btn-primary" bindtap="onAddGoal">添加目标</button>
+  </view>
+
+  <!-- 成员管理 -->
+  <view class="section-title">成员管理</view>
+  <view class="sort-tip" wx:if="{{members.length > 1}}">长按成员卡片可拖动排序</view>
+  <view class="member-list" wx:if="{{members.length > 0}}">
+    <view
+      class="card member-card {{sorting && dragIndex === index ? 'dragging' : ''}}"
+      wx:for="{{members}}"
+      wx:key="id"
+      data-index="{{index}}"
+      bindlongpress="onSortStart"
+      bindtouchmove="onSortMove"
+      bindtouchend="onSortEnd"
+      bindtouchcancel="onSortEnd"
+      style="{{sorting && dragIndex === index ? 'transform:translateY(' + dragOffset + 'px);z-index:10;' : ''}}"
+    >
+      <view class="member-avatar" style="background:{{item.avatar}};">
+        <image wx:if="{{item.avatarImage}}" class="member-avatar-img" src="{{item.avatarImage}}" mode="aspectFill"></image>
+        <text wx:elif="{{item.avatarIconEmoji}}">{{item.avatarIconEmoji}}</text>
+        <text wx:else>{{item.name[0]}}</text>
+      </view>
+      <view class="member-info">
+        <view class="member-name">{{item.name}}</view>
+        <view class="member-balance">资产 ¥{{item.balanceText}}</view>
+      </view>
+      <view class="member-actions">
+        <view class="action-btn" bindtap="onEditMember" data-id="{{item.id}}">编辑</view>
+        <view class="action-btn danger" bindtap="onDeleteMember" data-id="{{item.id}}">删除</view>
+      </view>
+    </view>
+  </view>
+  <view class="empty" wx:else>
+    <text class="empty-icon">👨‍👩‍👧</text>
+    <view>还没有家庭成员</view>
+  </view>
+  <view class="add-wrap">
+    <button class="btn-primary" bindtap="onAddMember">添加成员</button>
+  </view>
+
+  <!-- 目标管理弹层 -->
+  <view class="mask" wx:if="{{showGoalModal}}" bindtap="onGoalClose">
+    <view class="goal-modal" style="padding-bottom: {{keyboardHeight ? keyboardHeight + 24 + 'px' : ''}};" catchtap="noop">
+      <view class="goal-modal-body">
+      <view class="modal-title">{{editingGoalId ? '编辑目标' : '添加目标'}}</view>
+      <view class="form-item">
+        <view class="form-label">目标类型</view>
+        <view class="goal-type-row">
+          <view class="goal-type-option {{goalForm.type === 'family' ? 'selected' : ''}}" bindtap="onGoalTypeChange" data-type="family">家庭目标</view>
+          <view class="goal-type-option {{goalForm.type === 'personal' ? 'selected' : ''}}" bindtap="onGoalTypeChange" data-type="personal">个人目标</view>
+        </view>
+      </view>
+      <view class="form-item" wx:if="{{goalForm.type === 'personal'}}">
+        <view class="form-label">所属成员</view>
+        <view class="member-select-row">
+          <view class="member-select-option {{goalForm.memberId === item.id ? 'selected' : ''}}"
+            wx:for="{{members}}" wx:key="id" bindtap="onGoalMemberChange" data-id="{{item.id}}">
+            <view class="member-select-avatar" style="background:{{item.avatar}};">
+              <image wx:if="{{item.avatarImage}}" class="member-select-avatar-img" src="{{item.avatarImage}}" mode="aspectFill"></image>
+              <text wx:elif="{{item.avatarIconEmoji}}">{{item.avatarIconEmoji}}</text>
+              <text wx:else>{{item.name[0]}}</text>
+            </view>
+            <view class="member-select-name">{{item.name}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="form-item">
+        <view class="form-label">目标名称</view>
+        <input class="form-input" placeholder="如：购房首付、孩子教育金" value="{{goalForm.name}}" data-field="name" bindinput="onGoalInput" />
+      </view>
+      <view class="form-item">
+        <view class="form-label">目标金额</view>
+        <input class="form-input" type="digit" placeholder="请输入目标总金额" value="{{goalForm.targetAmount}}" data-field="targetAmount" bindinput="onGoalInput" />
+      </view>
+      <view class="form-item">
+        <view class="form-label">当前已存（自动）</view>
+        <view class="form-static-value">¥{{goalForm.type === 'personal' ? goalForm.memberId ? goalMemberBalanceText : '请选择成员' : goalFamilyBalanceText}}</view>
+      </view>
+      <view class="form-item">
+        <view class="form-label">图标</view>
+        <view class="icon-row">
+          <view class="icon-option {{goalForm.icon === item ? 'selected' : ''}}" wx:for="{{goalIcons}}" wx:key="*this" bindtap="onGoalIcon" data-icon="{{item}}">{{item}}</view>
+        </view>
+      </view>
+      </view>
+      <view class="modal-actions">
+        <button class="modal-btn cancel" bindtap="onGoalClose">取消</button>
+        <button class="modal-btn save" bindtap="onGoalSave">保存</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 工具 -->
+  <view class="section-title">工具</view>
+  <view class="card tool-row" bindtap="onOpenMortgage">
+    <view class="tool-icon">🏠</view>
+    <view class="tool-info">
+      <view class="tool-name">房贷计算器</view>
+      <view class="tool-tip">上海房贷月供、利息一键计算</view>
+    </view>
+    <view class="tool-arrow">›</view>
+  </view>
+
+  <!-- 金额隐藏开关 -->
+  <view class="section-title">隐私设置</view>
+  <view class="card setting-row">
+    <view class="setting-info">
+      <view class="setting-name">金额隐藏</view>
+      <view class="setting-tip">开启后所有金额将以 **** 显示</view>
+    </view>
+    <switch checked="{{hideAmount}}" bindchange="onHideAmountChange" color="#07C160" />
+  </view>
+</view>

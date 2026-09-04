@@ -1,0 +1,176 @@
+.page {
+  padding-bottom: 60rpx;
+}
+
+/* 总资产卡片 */
+.hero {
+  background: linear-gradient(135deg, #07C160 0%, #10D96F 55%, #4BE39A 100%);
+  margin: 24rpx;
+  border-radius: 32rpx;
+  padding: 48rpx 40rpx;
+  color: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(7, 193, 96, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -80rpx;
+  right: -60rpx;
+  width: 260rpx;
+  height: 260rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.hero-label {
+  font-size: 26rpx;
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-amount {
+  font-size: 76rpx;
+  font-weight: 700;
+  margin: 16rpx 0 28rpx;
+  letter-spacing: 1rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-sub {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-sub-item {
+  flex: 1;
+}
+
+.sub-label {
+  font-size: 24rpx;
+  opacity: 0.85;
+}
+
+.sub-value {
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-top: 6rpx;
+}
+
+.hero-sub-divider {
+  width: 1rpx;
+  height: 56rpx;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 0 24rpx;
+}
+
+/* 资产列表 */
+.asset-list {
+  padding: 8rpx 24rpx;
+}
+
+.asset-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 8rpx;
+  border-bottom: 1rpx solid #F5F5F5;
+}
+
+.asset-item:last-child {
+  border-bottom: none;
+}
+
+.asset-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 36rpx;
+  font-weight: 600;
+  margin-right: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.12);
+}
+
+.asset-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.family-avatar {
+  background: linear-gradient(135deg, #07C160 0%, #10D96F 100%);
+  font-size: 40rpx;
+}
+
+.asset-info {
+  flex: 1;
+}
+
+.asset-name {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.asset-meta {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.asset-amount {
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-right: 12rpx;
+}
+
+.asset-arrow {
+  font-size: 36rpx;
+  color: #CCCCCC;
+}
+
+/* 家庭资产构成预览 */
+.family-preview {
+  padding: 8rpx 24rpx;
+}
+
+.family-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 8rpx;
+  border-bottom: 1rpx solid #F5F5F5;
+}
+
+.family-item:last-child {
+  border-bottom: none;
+}
+
+.family-icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 20rpx;
+  background: #E8F8EF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin-right: 20rpx;
+}
+
+.family-name {
+  flex: 1;
+  font-size: 28rpx;
+}
+
+.family-amount {
+  font-size: 28rpx;
+  font-weight: 600;
+}

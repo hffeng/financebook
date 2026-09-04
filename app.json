@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/statistics/statistics",
+    "pages/record/record",
+    "pages/categories/categories",
+    "pages/mine/mine",
+    "pages/asset-setting/asset-setting",
+    "pages/member-asset/member-asset",
+    "pages/asset-overview/asset-overview",
+    "pages/asset-detail/asset-detail",
+    "pages/mortgage/mortgage",
+    "pages/member-edit/member-edit",
+    "pages/record-detail/record-detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "家庭记账",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F7F8FA"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#9E9E9E",
+    "selectedColor": "#07C160",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "总览"
+      },
+      {
+        "pagePath": "pages/statistics/statistics",
+        "text": "资产"
+      },
+      {
+        "pagePath": "pages/record/record",
+        "text": "记账"
+      },
+      {
+        "pagePath": "pages/categories/categories",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

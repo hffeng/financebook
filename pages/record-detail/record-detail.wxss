@@ -1,0 +1,117 @@
+.page {
+  padding-bottom: 60rpx;
+}
+
+/* 顶部金额卡片 */
+.hero {
+  margin: 24rpx;
+  border-radius: 32rpx;
+  padding: 48rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.06);
+}
+
+.hero-icon {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  margin-bottom: 20rpx;
+}
+
+.hero-type {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.hero-amount {
+  font-size: 64rpx;
+  font-weight: 700;
+  margin-top: 12rpx;
+  letter-spacing: 1rpx;
+}
+
+.hero-amount.income {
+  color: #FF4D4F;
+}
+
+.hero-amount.expense {
+  color: #07C160;
+}
+
+.hero-amount.asset {
+  color: #42A5F5;
+}
+
+.hero-category {
+  font-size: 28rpx;
+  color: #666;
+  margin-top: 12rpx;
+}
+
+/* 详情列表 */
+.detail-card {
+  margin: 24rpx;
+  padding: 8rpx 32rpx;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 0;
+  border-bottom: 1rpx solid #F5F5F5;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  width: 160rpx;
+  font-size: 28rpx;
+  color: #999;
+}
+
+.detail-value {
+  flex: 1;
+  font-size: 28rpx;
+  color: #1A1A1A;
+  text-align: right;
+}
+
+/* 操作按钮 */
+.actions {
+  display: flex;
+  gap: 24rpx;
+  margin: 40rpx 24rpx;
+}
+
+.action-btn {
+  flex: 1;
+  border-radius: 40rpx;
+  font-size: 30rpx;
+  padding: 22rpx 0;
+  text-align: center;
+  border: none;
+  line-height: 1.4;
+}
+
+.action-btn::after {
+  border: none;
+}
+
+.action-btn.edit {
+  background: linear-gradient(135deg, #07C160 0%, #10D96F 100%);
+  color: #fff;
+}
+
+.action-btn.delete {
+  background: #F0F2F0;
+  color: #FF4D4F;
+}

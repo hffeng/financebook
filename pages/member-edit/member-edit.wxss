@@ -1,0 +1,138 @@
+.page {
+  padding-bottom: 160rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A1A;
+  padding: 32rpx 32rpx 16rpx;
+}
+
+.card {
+  background: #fff;
+  border-radius: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+  margin: 0 24rpx;
+}
+
+.form-card {
+  padding: 24rpx;
+  margin-top: 24rpx;
+}
+
+.top-card {
+  margin-top: 24rpx;
+}
+
+.form-input {
+  width: 100%;
+  background: #F5F7FA;
+  border-radius: 16rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  border: none;
+  box-sizing: border-box;
+  height: 88rpx;
+  line-height: 88rpx;
+}
+
+.field-label {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+}
+
+.form-tip {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 16rpx;
+  line-height: 1.5;
+}
+
+/* 财产支出子标签（与上一输入框之间留间距） */
+.sub-label {
+  margin-top: 24rpx;
+}
+
+/* 头像选择 */
+.avatar-card {
+  padding: 24rpx 16rpx;
+}
+
+.avatar-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.avatar-option {
+  width: calc(33.33% - 16rpx);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx 0;
+  border-radius: 20rpx;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.avatar-option.selected {
+  background: #E8F8EF;
+  box-shadow: 0 0 0 2rpx #07C160;
+}
+
+.avatar-option-icon {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.12);
+}
+
+.avatar-option-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.avatar-option-name {
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 12rpx;
+  text-align: center;
+}
+
+.avatar-option.selected .avatar-option-name {
+  color: #07C160;
+  font-weight: 500;
+}
+
+/* 保存按钮 */
+.add-wrap {
+  padding: 40rpx 24rpx;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #07C160 0%, #10D96F 100%);
+  color: #fff;
+  border-radius: 48rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  padding: 24rpx 0;
+  text-align: center;
+  border: none;
+  line-height: 1.4;
+  width: 100%;
+}
+
+.btn-primary::after {
+  border: none;
+}
+
+.btn-primary:active {
+  opacity: 0.9;
+}

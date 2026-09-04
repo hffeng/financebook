@@ -1,0 +1,63 @@
+<view class="page">
+  <!-- 总资产卡片 -->
+  <view class="hero">
+    <view class="hero-label">家庭总资产</view>
+    <view class="hero-amount">¥{{totalText}}</view>
+    <view class="hero-sub">
+      <view class="hero-sub-item">
+        <view class="sub-label">流动资产</view>
+        <view class="sub-value">¥{{personalTotalText}}</view>
+      </view>
+      <view class="hero-sub-divider"></view>
+      <view class="hero-sub-item">
+        <view class="sub-label">非流动资产</view>
+        <view class="sub-value">¥{{familyTotalText}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 流动资产 -->
+  <view class="section-title">流动资产</view>
+  <view class="card asset-list" wx:if="{{personalAssets.length > 0}}">
+    <view class="asset-item" wx:for="{{personalAssets}}" wx:key="memberId" bindtap="onPersonalTap" data-id="{{item.memberId}}">
+      <view class="asset-avatar" style="background:{{item.avatar}};">
+        <image wx:if="{{item.avatarImage}}" class="asset-avatar-img" src="{{item.avatarImage}}" mode="aspectFill"></image>
+        <text wx:elif="{{item.avatarIconEmoji}}">{{item.avatarIconEmoji}}</text>
+        <text wx:else>{{item.name[0]}}</text>
+      </view>
+      <view class="asset-info">
+        <view class="asset-name">{{item.name}}</view>
+        <view class="asset-meta">{{item.itemCount}} 项资产构成</view>
+      </view>
+      <view class="asset-amount">¥{{item.totalText}}</view>
+      <view class="asset-arrow">›</view>
+    </view>
+  </view>
+  <view class="empty" wx:else>
+    <text class="empty-icon">👤</text>
+    <view>暂无成员</view>
+  </view>
+
+  <!-- 非流动资产 -->
+  <view class="section-title">非流动资产</view>
+  <view class="card asset-list">
+    <view class="asset-item" bindtap="onFamilyTap">
+      <view class="asset-avatar family-avatar">🏠</view>
+      <view class="asset-info">
+        <view class="asset-name">非流动资产</view>
+        <view class="asset-meta">{{familyAssets.length}} 项资产构成</view>
+      </view>
+      <view class="asset-amount">¥{{familyTotalText}}</view>
+      <view class="asset-arrow">›</view>
+    </view>
+  </view>
+
+  <!-- 非流动资产构成预览 -->
+  <view class="card family-preview" wx:if="{{familyAssets.length > 0}}">
+    <view class="family-item" wx:for="{{familyAssets}}" wx:key="category">
+      <view class="family-icon">{{item.icon}}</view>
+      <view class="family-name">{{item.categoryName}}</view>
+      <view class="family-amount">¥{{item.amountText}}</view>
+    </view>
+  </view>
+</view>

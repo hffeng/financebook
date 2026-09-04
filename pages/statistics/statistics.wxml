@@ -1,0 +1,85 @@
+<view class="page">
+  <!-- 资产总览 -->
+  <view class="hero">
+    <view class="hero-label">家庭总资产</view>
+    <view class="hero-amount">¥{{totalAssetText}}</view>
+    <view class="hero-sub">
+      <view class="hero-sub-item">
+        <view class="sub-label">流动资产</view>
+        <view class="sub-value">¥{{currentAssetText}}</view>
+      </view>
+      <view class="hero-sub-divider"></view>
+      <view class="hero-sub-item">
+        <view class="sub-label">非流动资产</view>
+        <view class="sub-value">¥{{familyAssetText}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 时间范围筛选 -->
+  <view class="range-tabs">
+    <view class="range-tab {{range === 'month' ? 'active' : ''}}" bindtap="onRangeChange" data-range="month">本月</view>
+    <view class="range-tab {{range === 'lastMonth' ? 'active' : ''}}" bindtap="onRangeChange" data-range="lastMonth">上月</view>
+    <view class="range-tab {{range === 'all' ? 'active' : ''}}" bindtap="onRangeChange" data-range="all">全部</view>
+  </view>
+
+  <!-- 汇总 -->
+  <view class="card summary">
+    <view class="summary-item">
+      <view class="summary-label">收入</view>
+      <view class="summary-value amount-income">¥{{totalIncome}}</view>
+    </view>
+    <view class="summary-divider"></view>
+    <view class="summary-item">
+      <view class="summary-label">支出</view>
+      <view class="summary-value amount-expense">¥{{totalExpense}}</view>
+    </view>
+    <view class="summary-divider"></view>
+    <view class="summary-item">
+      <view class="summary-label">结余</view>
+      <view class="summary-value">¥{{totalBalance}}</view>
+    </view>
+  </view>
+
+  <!-- 成员资产对比 -->
+  <view class="section-title">成员资产</view>
+  <view class="card member-stats" wx:if="{{memberStats.length > 0}}">
+    <view class="mstat-item" wx:for="{{memberStats}}" wx:key="id" bindtap="onMemberTap" data-id="{{item.id}}">
+      <view class="mstat-avatar" style="background:{{item.avatar}};">
+        <image wx:if="{{item.avatarImage}}" class="mstat-avatar-img" src="{{item.avatarImage}}" mode="aspectFill"></image>
+        <text wx:elif="{{item.avatarIconEmoji}}">{{item.avatarIconEmoji}}</text>
+        <text wx:else>{{item.name[0]}}</text>
+      </view>
+      <view class="mstat-info">
+        <view class="mstat-name">{{item.name}}</view>
+        <view class="mstat-detail">
+          <text class="amount-income">收 ¥{{item.incomeText}}</text>
+          <text class="amount-expense">支 ¥{{item.expenseText}}</text>
+        </view>
+      </view>
+      <view class="mstat-balance">¥{{item.balanceText}}</view>
+      <view class="mstat-arrow">›</view>
+    </view>
+    <view class="member-tip">点击成员查看流动资产详情</view>
+  </view>
+  <view class="empty" wx:else>暂无数据</view>
+
+  <!-- 分类占比 -->
+  <view class="section-title">分类统计</view>
+  <view class="card">
+    <view class="pie-tabs">
+      <view class="pie-tab {{pieType === 'expense' ? 'active' : ''}}" bindtap="onPieTypeChange" data-type="expense">支出</view>
+      <view class="pie-tab {{pieType === 'income' ? 'active' : ''}}" bindtap="onPieTypeChange" data-type="income">收入</view>
+    </view>
+    <asset-chart type="pie" pie-data="{{pieData}}" hide-amount="{{hideAmount}}"></asset-chart>
+    <view class="pie-legend" wx:if="{{pieData.length > 0}}">
+      <view class="legend-item" wx:for="{{pieData}}" wx:key="name">
+        <view class="legend-dot" style="background:{{item.color}};"></view>
+        <view class="legend-name">{{item.name}}</view>
+        <view class="legend-amount">¥{{item.amountText}}</view>
+        <view class="legend-percent">{{item.percent}}%</view>
+      </view>
+    </view>
+    <view class="empty" wx:else>暂无数据</view>
+  </view>
+</view>

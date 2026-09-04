@@ -1,0 +1,69 @@
+<view class="page">
+  <!-- 成员选择 -->
+  <scroll-view scroll-x class="member-scroll" show-scrollbar="{{false}}">
+    <view class="member-list">
+      <view class="member-item {{selectedMemberId === item.id ? 'selected' : ''}}"
+        wx:for="{{members}}" wx:key="id" bindtap="onMemberSelect" data-id="{{item.id}}">
+        <view class="member-avatar" style="background:{{item.avatar}};">
+          <image wx:if="{{item.avatarImage}}" class="member-avatar-img" src="{{item.avatarImage}}" mode="aspectFill"></image>
+          <text wx:elif="{{item.avatarIconEmoji}}">{{item.avatarIconEmoji}}</text>
+          <text wx:else>{{item.name[0]}}</text>
+        </view>
+        <view class="member-name">{{item.name}}</view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <block wx:if="{{selectedMember}}">
+    <!-- 资产摘要 -->
+    <view class="card summary">
+      <view class="summary-item">
+        <view class="summary-label">期初资产</view>
+        <view class="summary-value">¥{{initialText}}</view>
+      </view>
+      <view class="summary-divider"></view>
+      <view class="summary-item">
+        <view class="summary-label">当前资产</view>
+        <view class="summary-value highlight">¥{{currentText}}</view>
+      </view>
+      <view class="summary-divider"></view>
+      <view class="summary-item">
+        <view class="summary-label">变化</view>
+        <view class="summary-value {{change >= 0 ? 'amount-income' : 'amount-expense'}}">
+          {{change >= 0 ? '+' : ''}}{{changeText}}
+        </view>
+      </view>
+    </view>
+
+    <!-- 资产趋势 -->
+    <view class="card trend-card">
+      <view class="trend-header">
+        <text class="trend-title">{{selectedMember.name}}的资产趋势</text>
+        <view class="trend-tabs">
+          <view class="trend-tab {{range === 'month' ? 'active' : ''}}" bindtap="onRangeChange" data-range="month">近30天</view>
+          <view class="trend-tab {{range === 'year' ? 'active' : ''}}" bindtap="onRangeChange" data-range="year">近12月</view>
+        </view>
+      </view>
+      <asset-chart type="line" line-data="{{trendData}}" line-color="#07C160" hide-amount="{{hideAmount}}"></asset-chart>
+    </view>
+
+    <!-- 锚点列表 -->
+    <view class="section-title">资产锚点</view>
+    <view class="card anchor-list" wx:if="{{anchors.length > 0}}">
+      <view class="anchor-item" wx:for="{{anchors}}" wx:key="id">
+        <view class="anchor-icon" style="background:{{item.type === 'initial' ? '#E8F8EF' : '#E3F2FD'}};">
+          <text>{{item.type === 'initial' ? '🏁' : '📌'}}</text>
+        </view>
+        <view class="anchor-info">
+          <view class="anchor-name">{{item.type === 'initial' ? '期初资产' : '资产快照'}}</view>
+          <view class="anchor-date">{{item.date}}<text wx:if="{{item.note}}"> · {{item.note}}</text></view>
+        </view>
+        <view class="anchor-amount">¥{{item.amountText}}</view>
+      </view>
+    </view>
+    <view class="empty" wx:else>
+      <text class="empty-icon">🏁</text>
+      <view>暂无资产锚点，请到「资产设置」设置期初资产或快照</view>
+    </view>
+  </block>
+</view>
