@@ -96,10 +96,13 @@ wechat-finance-book/
 ## 快速开始
 
 1. 使用 **微信开发者工具** 导入本项目
-2. 在 `app.js` 中配置你的 **云开发环境 ID**（`wx.cloud.init` 的 `env` 字段）
-3. 在微信开发者工具中开通 **云开发**，创建集合 `fb`
-4. 编译运行即可
+2. 在 `project.config.json` 中填入你的 **小程序 AppID**（`appid` 字段）
+3. 在 `app.js` 中配置你的 **云开发环境 ID**（`wx.cloud.init` 的 `env` 字段）
+4. 在微信开发者工具中开通 **云开发**，创建集合 `fb`
+5. 编译运行即可
 
+> 说明：出于安全考虑，仓库中已移除个人 AppID 与云环境 ID，需按上述步骤自行配置。
+>
 > 说明：云数据库使用单个集合 `fb`，每种数据类型对应一个文档（members、records、categories、assets、asset_records、goals、settings 等）。
 
 ## 数据说明
