@@ -128,8 +128,8 @@ Page({
       });
       assetRecords = groups;
     }
-    // 流动资产 = 资产构成各项之和 + 收入 - 支出
-    const personalTotal = items.reduce((s, a) => s + a.amount, 0) + incomeTotal - expenseTotal;
+    // 流动资产 = 资产构成各项之和 + 收入 - 支出（非流动资产页为 0）
+    const personalTotal = scope === 'family' ? 0 : items.reduce((s, a) => s + a.amount, 0) + incomeTotal - expenseTotal;
     // 非流动资产 = 该成员名下非流动资产之和（个人页）；家庭页为全部非流动资产
     let familyTotal;
     if (scope === 'family') {
@@ -139,8 +139,8 @@ Page({
         .filter(a => a.scope === 'family' && a.memberId === memberId)
         .reduce((s, a) => s + a.amount, 0);
     }
-    // 个人资产 = 流动资产 + 非流动资产
-    const assetTotal = personalTotal + familyTotal;
+    // 个人资产 = 流动资产 + 非流动资产；非流动资产页总额 = 各项资产之和
+    const assetTotal = scope === 'family' ? familyTotal : personalTotal + familyTotal;
     const formatted = items.map(i => Object.assign({}, i, {
       amountText: money(i.amount)
     }));
