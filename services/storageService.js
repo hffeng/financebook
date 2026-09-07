@@ -1184,6 +1184,16 @@ function deleteGoal(id) {
   saveGoals(getGoals().filter(g => g.id !== id));
 }
 
+// 归档目标（标记为已完成）
+function archiveGoal(id) {
+  updateGoal(id, { archived: true, archivedAt: Date.now() });
+}
+
+// 取消归档目标（恢复为进行中）
+function unarchiveGoal(id) {
+  updateGoal(id, { archived: false, archivedAt: '' });
+}
+
 // 所有目标总金额
 function goalTotal() {
   return getGoals().reduce((s, g) => s + (g.targetAmount || 0), 0);
@@ -1453,6 +1463,8 @@ module.exports = {
   addGoal,
   updateGoal,
   deleteGoal,
+  archiveGoal,
+  unarchiveGoal,
   goalTotal,
   goalCurrentTotal,
   goalCurrentAmount,

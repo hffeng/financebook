@@ -23,6 +23,7 @@
         <view class="goal-amount">¥{{item.currentText}} / ¥{{item.targetText}}</view>
         <view class="goal-actions">
           <view class="goal-btn" bindtap="onEditGoal" data-id="{{item.id}}">编辑</view>
+          <view class="goal-btn" bindtap="onArchiveGoal" data-id="{{item.id}}">归档</view>
           <view class="goal-btn danger" bindtap="onDeleteGoal" data-id="{{item.id}}">删除</view>
         </view>
       </view>
@@ -32,6 +33,31 @@
     <text class="empty-icon">🎯</text>
     <view>还没有财务目标</view>
     <view class="empty-tip">点击下方「添加目标」开始规划</view>
+  </view>
+
+  <!-- 已完成目标（折叠面板，默认折叠） -->
+  <view class="cat-group" wx:if="{{archivedGoals.length > 0}}">
+    <view class="group-head" bindtap="onToggleArchived">
+      <view class="group-icon done">✅</view>
+      <view class="group-name">已完成目标</view>
+      <view class="group-count">{{archivedGoals.length}}</view>
+      <view class="group-arrow {{archivedCollapsed ? 'open' : ''}}">›</view>
+    </view>
+    <view class="group-body" wx:if="{{!archivedCollapsed}}">
+      <view class="archived-row" wx:for="{{archivedGoals}}" wx:key="id">
+        <view class="archived-icon" style="background:{{item.color}}1A;">{{item.icon}}</view>
+        <view class="archived-info">
+          <view class="archived-name">{{item.name}}</view>
+          <view class="archived-meta">{{item.periodText}}</view>
+          <view class="archived-amount">¥{{item.targetText}}</view>
+        </view>
+        <view class="archived-actions">
+          <view class="action-btn" bindtap="onUnarchiveGoal" data-id="{{item.id}}">恢复</view>
+          <view class="action-btn danger" bindtap="onDeleteGoal" data-id="{{item.id}}">删除</view>
+        </view>
+      </view>
+      <view class="empty" wx:if="{{archivedGoals.length === 0}}">暂无已完成目标</view>
+    </view>
   </view>
 
   <!-- 财务目标管理 -->
@@ -80,7 +106,7 @@
 
   <!-- 目标管理弹层 -->
   <view class="mask" wx:if="{{showGoalModal}}" bindtap="onGoalClose">
-    <view class="goal-modal" style="padding-bottom: {{keyboardHeight ? keyboardHeight + 24 + 'px' : ''}};" catchtap="noop">
+    <view class="goal-modal" catchtap="noop">
       <view class="goal-modal-body">
       <view class="modal-title">{{editingGoalId ? '编辑目标' : '添加目标'}}</view>
       <view class="form-item">
@@ -122,10 +148,10 @@
           <view class="icon-option {{goalForm.icon === item ? 'selected' : ''}}" wx:for="{{goalIcons}}" wx:key="*this" bindtap="onGoalIcon" data-icon="{{item}}">{{item}}</view>
         </view>
       </view>
-      </view>
       <view class="modal-actions">
         <button class="modal-btn cancel" bindtap="onGoalClose">取消</button>
         <button class="modal-btn save" bindtap="onGoalSave">保存</button>
+      </view>
       </view>
     </view>
   </view>

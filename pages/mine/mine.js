@@ -9,6 +9,9 @@ Page({
   data: {
     // 财务目标
     goals: [],
+    archivedGoals: [],
+    // 已完成目标折叠状态（默认折叠）
+    archivedCollapsed: true,
     // 目标管理弹层
     showGoalModal: false,
     editingGoalId: '',
@@ -24,18 +27,11 @@ Page({
     dragOffset: 0,
     itemHeight: 0,
     sorting: false,
-    // 键盘高度（用于弹层上移）
-    keyboardHeight: 0,
     // 金额隐藏开关
     hideAmount: false
   },
 
-  onLoad() {
-    // 监听键盘高度变化，避免弹层输入框被键盘遮挡
-    wx.onKeyboardHeightChange((res) => {
-      this.setData({ keyboardHeight: res.height || 0 });
-    });
-  },
+  onLoad() {},
 
   onShow() {
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
@@ -55,10 +51,9 @@ Page({
   // ============ 财务目标 ============
   loadGoals() {
     const members = storage.getMembers();
-    const familyDetail = storage.familyGoalCurrentDetail();
     const hide = this.data.hideAmount;
     const money = (v) => hide ? '****' : formatAmount(v);
-    const goals = storage.getGoals().map(g => {
+    const decorate = (g) => {
       const currentAmount = storage.goalCurrentAmount(g);
       const percent = g.targetAmount > 0 ? Math.min(100, (currentAmount / g.targetAmount) * 100) : 0;
       const member = g.type === 'personal' ? members.find(m => m.id === g.memberId) : null;
@@ -76,8 +71,18 @@ Page({
         calcText,
         percent: Math.round(percent)
       });
+    };
+    const all = storage.getGoals();
+    const goals = all.filter(g => !g.archived).map(decorate);
+    const archivedGoals = all.filter(g => g.archived).map(g => {
+      const start = g.createdAt ? dateUtil.formatDate(new Date(g.createdAt)) : '';
+      const end = g.archivedAt ? dateUtil.formatDate(new Date(g.archivedAt)) : '';
+      return Object.assign(decorate(g), {
+        percent: 100,
+        periodText: start && end ? start + ' ~ ' + end : ''
+      });
     });
-    this.setData({ goals });
+    this.setData({ goals, archivedGoals });
   },
 
   onAddGoal() {
@@ -192,6 +197,35 @@ Page({
 
   onGoalClose() {
     this.setData({ showGoalModal: false });
+  },
+
+  onArchiveGoal(e) {
+    const id = e.currentTarget.dataset.id;
+    const goal = this.data.goals.find(g => g.id === id);
+    if (!goal) return;
+    wx.showModal({
+      title: '归档目标',
+      content: '确定将「' + goal.name + '」标记为已完成并归档吗？',
+      confirmColor: '#07C160',
+      success: (res) => {
+        if (res.confirm) {
+          storage.archiveGoal(id);
+          wx.showToast({ title: '已归档', icon: 'success' });
+          this.loadGoals();
+        }
+      }
+    });
+  },
+
+  onUnarchiveGoal(e) {
+    const id = e.currentTarget.dataset.id;
+    storage.unarchiveGoal(id);
+    wx.showToast({ title: '已恢复', icon: 'success' });
+    this.loadGoals();
+  },
+
+  onToggleArchived() {
+    this.setData({ archivedCollapsed: !this.data.archivedCollapsed });
   },
 
   // ============ 成员管理 ============
